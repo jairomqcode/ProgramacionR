@@ -170,4 +170,115 @@ sol:
 [1] 12.0000 15.5000 3.1000 -2.2000 0.0000 0.0007
 ```
 
+## 2.2.3. Creación de vectores a partir de secuencias y otros patrones.
 
+Un vector, inicializado en ceros, o FALSE, y de longitud determinada, se puede crear con la función vector(). Es esta misma función la que permite crear vectores sin elementos. En seguida se muestran algunos ejemplos:
+
+```{r}
+v <- vector("integer", 0)
+print(v) # Un vector de enteros sin elementos
+sol:
+integer(0)
+```
+
+```{r}
+w <- vector("numeric", 3)
+print(w) # Un vector de tres ceros
+sol:
+[1] 0 0 0
+```
+
+```{r}
+u <- vector("logical", 5)
+print(u) # Un vector de 5 FALSE
+sol:
+[1] FALSE FALSE FALSE FALSE FALSE
+```
+
+El operador ’:’ permite generar un vector entero a partir de una secuencia creciente o decreciente de enteros, cuyos extremos se indican, tal como se muestra en seguida:
+
+```{r}
+s <- 1:3
+print(s)
+sol:
+[1] 1 2 3
+```
+
+```{r}
+v <- 40:13
+print(v); class(v) # El vector y su clase
+sol:
+[1] 40 39 38 37 36 35 34 33 32 31 30 29 28 27 26 25 24 23
+[19] 22 21 20 19 18 17 16 15 14 13
+[1] "integer"
+```
+
+Nótese que el desplegado o impresión del vector v, se ha tenido que hacer en dos renglones. Cada uno de esos renglones comienza, indicando entre corchetes [ ], el índice del primer elemento en el renglón. El alcance del operador ’:’ no se limita, sin embargo, sólo a números enteros. Veamos el siguiente, ejemplo:
+
+```{r}
+v <- pi:6
+print(v); print(class(v))   # El vector y su clase
+sol:
+[1] 3.141593 4.141593 5.141593
+[1] "numeric"
+```
+
+En este ejemplo, pi simboliza el valor de la constante matemática π ≈ 3.1416, y la secuencia de números reales que se produce es con incrementos de 1 a ese valor hasta mientras que no se rebase el límite superior, 6, en este caso. Por otra parte, este operador es un caso particular de la función seq() que permite generar una mayor variedad de secuencias numéricas. Veamos aquí algunos ejemplos:
+
+```{r}
+v <- seq(from = 5, to = 15, by = 2)
+print(v); print(class(v))   # secuencia desde 5 hasta 15 de 2 en 2
+sol:
+[1]  5  7  9 11 13 15
+[1] "numeric"
+```
+
+Debe notarse aquí, no obstante, que la clase del resultado de esta secuencia es numeric y no integer; esto es, el vector resultante es de números reales, que puede, a conveniencia, ser convertido a enteros, mediante la función as.integer().
+
+La función seq() tiene varios argumentos más cuya documentación se puede consultar mediante ?seq o help(’seq’) en el intérprete de R. En seguida se muestra sólo otra forma bastante común de utilizar esta función, que tiene que ver con la producción de un vector o una secuencia de una longitud determinada.
+
+```{r}
+v <- seq(from = 4, by = 2, length.out = 8)
+print(v)    # secuencia de 8 números iniciando desde 4 y de 2 en 2
+sol:
+[1]  4  6  8 10 12 14 16 18
+```
+
+Algunas veces es necesario repetir una secuencia de números varias veces para generar un vector deseado. La función rep() sirve para ese propósito.
+
+```{r}
+v <- c(4, 8, -3)
+w <- rep(v, times = 5)
+print(w)
+sol:
+[1]  4  8 -3  4  8 -3  4  8 -3  4  8 -3  4  8 -3
+```
+
+Finalmente, aveces se requiere construir un vector a partir de dos o más vectores ya existentes. La forma simple de lograr esto es con la función c() como se muestra a continuación:
+
+```{r}
+u <- c(3, 4, 5)
+v <- c(5, 4, 3)
+w <- c(u, v)
+print(w) # La concatenación de u y v
+sol:
+[1] 3 4 5 5 4 3
+```
+
+## 2.2.4. Acceso a los elementos individuales de un vector.
+
+```{r}
+v <- c(8, 7, -3, 2, 182)
+v[5]    # El quinto elemento
+sol:
+[1] 182
+
+print(v[1]); print(v[3])
+sol:
+[1] 8
+[1] -3
+
+print(v[4]+v[2])    # La suma del cuarto y segundo elementos de v
+sol:
+[1] 9
+```
