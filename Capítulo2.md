@@ -269,7 +269,7 @@ sol:
 
 ```{r}
 v <- c(8, 7, -3, 2, 182)
-v[5]    # El quinto elemento
+print(v[5])         # El quinto elemento
 sol:
 [1] 182
 
