@@ -119,9 +119,7 @@ sol:
 
 Aquí, la impresión del valor de x tiene una forma muy particular: “[1] 2”. El ’[1]’ que precede al valor, indica que se trata del primer elemento y único, en este caso, del vector que se muestra.
 
-## Diversas maneras de crear vectores.
-
-## El uso de la **función c()** para crear vectores.
+## 2.2.1. El uso de la **función c()** para crear vectores.
 
 La primera manera de crear vectores es a partir de los elementos individuales que compondrán el vector. Para esto se utiliza la **función c()** como se muestra a continuación.
 
@@ -155,4 +153,21 @@ Un caso muy particular de asignación, es el de la función assign(). A diferenc
 
 
 ## 2.2.2. Creación de vectores a partir de archivos de texto - la función scan().
+
+Sea, por ejemplo, el caso del archivo UnVec.txt, que se contiene la siguiente información:
+
+```{r}
+12 15.5 3.1
+-2.2 0 0.0007
+```
+
+Supóngase ahora que a partir de esos datos se quiere crear un vector. Para eso se usa la función scan(), como se muestra a continuación:
+
+```{r}
+vec <- scan("UnVec.txt")
+print(vec)
+sol:
+[1] 12.0000 15.5000 3.1000 -2.2000 0.0000 0.0007
+```
+
 
