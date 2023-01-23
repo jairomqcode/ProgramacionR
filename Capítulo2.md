@@ -239,7 +239,7 @@ La función seq() tiene varios argumentos más cuya documentación se puede cons
 
 ```{r}
 v <- seq(from = 4, by = 2, length.out = 8)
-print(v)    # secuencia de 8 números iniciando desde 4 y de 2 en 2
+print(v)        # secuencia de 8 números iniciando desde 4 y de 2 en 2
 sol:
 [1]  4  6  8 10 12 14 16 18
 ```
@@ -260,7 +260,7 @@ Finalmente, aveces se requiere construir un vector a partir de dos o más vector
 u <- c(3, 4, 5)
 v <- c(5, 4, 3)
 w <- c(u, v)
-print(w) # La concatenación de u y v
+print(w)            # La concatenación de u y v
 sol:
 [1] 3 4 5 5 4 3
 ```
@@ -273,12 +273,91 @@ print(v[5])         # El quinto elemento
 sol:
 [1] 182
 
-print(v[1]); print(v[3])
+print(v[1]); print(v[3])    # El primero y el tercer elemento.
 sol:
 [1] 8
 [1] -3
 
-print(v[4]+v[2])    # La suma del cuarto y segundo elementos de v
+print(v[4]+v[2])     # La suma del cuarto y segundo elementos de v.
 sol:
 [1] 9
 ```
+
+El acceso a los elementos individuales de un vector no solamente es para consulta o lectura, sino también para su modificación o escritura. Por ejemplo:
+
+```{r}
+v[1] <- v[2] - v[5]
+print(v)    # El resultado de la operación se ha guardado en v[1]
+sol:
+[1] -175 7 -3 2 182
+```
+
+Esta misma operación puede hacer crecer un vector. Por ejemplo, el vector v tiene 5 elementos. Si se asigna un valor al elemento 8, el vector crecerá hasta esa longitud, de la manera siguiente:
+
+```{r}
+v[8] <- 213
+print(v)    # v tiene ahora 8 elementos con espacios vacios: NA
+sol:
+[1] -175 7 -3 2 182 NA NA 213
+```
+
+La nota aquí es que para aumentar el vector a esa longitud se tuvieron que introducir elementos ausentes o vacíos que se indican con el valor NA (del inglés: Not Available) en los espacios correspondientes.
+
+
+Otra característica interesante de este lenguaje, es que permite dar nombre y acceder por medio de ese nombre a los elementos individuales de un vector. Supóngase por ejemplo que se tiene el registro de cantidades de ciertas frutas en un vector:
+
+```{r}
+frutas <- c(15, 100, 2, 30)
+print(frutas)
+sol:
+[1]  15 100   2  30
+```
+
+Asociamos esos valores con el nombre de la fruta correspondiente:
+
+```{r}
+names(frutas) <- c("naranja", "pera", "manzana", "durazno")
+print(frutas)
+sol:
+naranja    pera manzana durazno 
+     15     100       2      30 
+```
+
+Otra manera más directa de nombrar los elementos de un vector, es en el momento mismo de la creación con la función c(), con una sintaxis semejante a la siguiente:
+
+```{r}
+frutas <- c(naranja = 15, pera = 100, manzana = 2, durazno = 30)
+print(frutas)
+sol:
+naranja    pera manzana durazno 
+     15     100       2      30 
+```
+
+Además se puede acceder a los elementos individuales del vector mediante su nombre:
+
+```{r}
+print(frutas["durazno"])
+sol:
+durazno 
+     30 
+```
+
+```{r}
+frutas["manzana"] <- 8
+print(frutas)
+sol:
+naranja    pera manzana durazno 
+     15     100       8      30 
+```
+
+El acceso a través de índices se sigue permitiendo:
+
+```{r}
+print(frutas[2])
+sol:
+pera 
+ 100
+```
+
+
+
