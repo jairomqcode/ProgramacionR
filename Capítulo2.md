@@ -359,5 +359,122 @@ pera
  100
 ```
 
+## 2.2.5. Operaciones sencillas con vectores.
 
+Las operaciones aritméticas más comunes están definidas para vectores: la suma, la resta, la división y la exponenciación, todas ellas se definen elemento a elemento entre dos vectores. Por ejemplo:
 
+```{r}
+v <- 2 + 3     # Resulta en un vector de longitud 1.
+print(v)
+sol:
+[1] 5
+```
+
+```{r}
+v <- c(2, 3) - c(5, 1)   # # Resulta en un vector de longitud 2.
+print(v)
+sol:
+[1] -3 2
+```
+
+```{r}
+v <- c(2, 3, 4) * c(2, 1, 3)
+print(v)
+sol:
+[1] 4 3 12
+```
+
+```{r}
+v <- c(2, 3, 4)^(3:1)    # Eleva a potencias 3,2,1
+print(v)
+sol:
+[1] 8 9 4
+```
+
+En todos los casos, la operación indicada se aplica elemento a elemento entre los dos vectores operandos. En el último ejemplo, debido al orden de precedencia de aplicación de los operadores, es necesario encerrar entre paréntesis la expresión 3:1.
+
+En muchas ocasiones es necesario saber la longitud de un vector. La función **length()** aplicada a un vector regresa precisamente ese valor:
+
+```{r}
+u <- 2:33
+v <- c(4, 5, 6)
+w <- c(u, v)
+print(w)
+sol:
+[1] 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+[19] 20 21 22 23 24 25 26 27 28 29 30 31 32 33 4 5 6
+print(length(w))
+[1] 35
+```
+
+Aprovecharemos el vector w, creado en el ejemplo anterior, para ilustrar también el uso de las operaciones lógicas. ¿Qué pasa si probamos este vector para saber cuáles de sus elementos son menores o iguales a 10?
+
+```{r}
+print(w <= 10)   # Prueba elementos menores o iguales a 10.
+sol:
+[1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[21] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+```
+
+El resultado es un vector de lógicos, de la misma longitud que el original y paralelo a ese, en el que se indica, elemento a elemento cuál es el resultado de la prueba lógica: “menor o igual que diez”, en este caso. Otros operadores lógicos son: <, >, >=, ==, y !=.
+
+En el asunto de las operaciones aritméticas que se han ilustrado anteriormente, surge una pregunta: ¿qué pasa cuando los vectores operandos no son de la misma longitud? En esos casos, el intérprete del lenguaje procede a completar la operación reciclando los elementos del operador de menor longitud. Así, por ejemplo:
+
+```{r}
+v <- c(4, 5, 6, 7, 8, 9, 10) * c(1, 2)
+print(v)
+sol:
+Warning message:
+In c(4, 5, 6, 7, 8, 9, 10) * c(1, 2) :
+  longitud de objeto mayor no es múltiplo de la longitud de uno menor
+```
+
+```{r}
+v <- c(4, 5, 6, 7, 8, 9, 10) * c(1, 2, 1, 2, 1, 2, 1)
+print(v)
+sol:
+[1]  4 10  6 14  8 18 10
+```
+
+Notemos, sin embargo, que en el primer caso el sistema ha arrojado un mensaje de advertencia, Warning, indicando la diferencia en las longitudes de los operandos. La eliminación de estos mensajes se hace por medio de la función options(), como sigue:
+
+```{r}
+options(warn = -1)
+v <- c(4, 5, 6, 7, 8,9, 10) * c(1, 2)
+print(v)
+sol:
+[1]  4 10  6 14  8 18 10
+```
+
+Es esta funcionalidad la que permite hacer de manera muy simple algunas operaciones vectoriales, como por ejemplo:
+
+```{r}
+v <- c(2, -3, 4)
+w <- 2 * (v^2)      # Dos veces el cuadrado de v
+print(w)
+sol:
+[1] 8 18 32
+```
+
+Además, algunas funciones pueden recibir como argumento un vector y producir a su salida un vector de la misma longitud que el de entrada. Tal es el caso de las funciones trigonométricas como sin(), cos(), y la raíz cuadrada: sqrt(). Por ejemplo:
+
+```{r}
+# Se desea la raíz cuadrada de los siguientes valores:
+v <- c(9, 8, 31)
+print(sqrt(v))
+sol:
+[1] 3.000000 2.828427 5.567764
+```
+
+```{r}
+# El sin de 30, 45 y 60 grados: Primero se hace la conversión a radianes:
+angulos <- c(30, 45, 60) * (pi/180)
+print(angulos)      # En radianes
+sol:
+[1] 0.5235988 0.7853982 1.0471976
+
+senos <- sin(angulos)
+print(senos)
+sol:
+[1] 0.5000000 0.7071068 0.8660254
+```
