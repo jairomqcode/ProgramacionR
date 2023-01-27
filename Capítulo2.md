@@ -478,3 +478,66 @@ print(senos)
 sol:
 [1] 0.5000000 0.7071068 0.8660254
 ```
+
+# 2.3. Matrices.
+
+Desde el punto de vista del lenguaje, una matriz es un vector con un atributo adicional: dim. Para el caso de las matrices, este atributo es un vector entero de dos elementos, a saber: el número de renglones y el número de columnas que componen a la matriz.
+
+## 2.3.1. Construcción de Matrices.
+
+Una de las formas de construir una matriz es a partir de un vector, como sigue:
+
+```{r}
+m <- 11:30
+print(m)
+sol:
+[1] 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30
+```
+
+Para convertirla en matriz simplemente se especifica el atributo dim.
+
+```{r}
+m <- 11:30
+dim(m) <- c(4, 5)   # 4 renglones y 5 columnas
+print(m)
+print(class(m))
+sol:
+     [,1] [,2] [,3] [,4] [,5]
+[1,]   11   15   19   23   27
+[2,]   12   16   20   24   28
+[3,]   13   17   21   25   29
+[4,]   14   18   22   26   30
+
+[1] "matrix" "array" 
+```
+
+Debe notarse que, mediante la construcción mostrada, el armado de la matriz se hace por columnas. Por otra parte, las dimensiones de la matriz pueden cambiarse en cualquier momento, y el acceso a un elemento particular de la matriz se hace ahora mediante dos índices: el renglón y la columna, aunque, el acceso a los elementos de la matriz como un vector, es decir, con un solo índice, sigue siendo posible, como se muestra en seguida:
+
+```{r}
+dim(m) <- c(5, 4) # Ahora 5 renglones y 4 columnas
+print(m)
+sol:
+    [,1] [,2] [,3] [,4]
+[1,]   11   16   21   26
+[2,]   12   17   22   27
+[3,]   13   18   23   28
+[4,]   14   19   24   29
+[5,]   15   20   25   30
+```
+
+Y el elemento en el renglon 3 y columna 2 es:
+
+```{r}
+print(m[3, 2])
+sol:
+[1] 18
+
+print(m[8])    # acceso al mismo elemento, como vector, con un solo índice.
+sol:
+[1] 18
+```
+
+
+
+
+
