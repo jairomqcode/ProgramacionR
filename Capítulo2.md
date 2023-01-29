@@ -722,3 +722,4 @@ sol:
 [2,]    4    5    6
 ```
 
+Otras operaciones sencillas se introducirán más adelante.
