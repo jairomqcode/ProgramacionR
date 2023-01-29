@@ -1,8 +1,8 @@
 # Programación en R
 
-Libro: El Arte de Programar en R, un lenguaje para la estadística
+## Libro: El Arte de Programar en R, un lenguaje para la estadística
 
-Autor: Julio Sergio Santana - Efraín Mateos Farfán
+## Autor: Julio Sergio Santana - Efraín Mateos Farfán
 
 | Número de capítulo | Nombre del capítulo | Link del repositorio |
 | ------------------ | ------------------- | -------------------- |
