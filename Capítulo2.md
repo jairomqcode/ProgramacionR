@@ -537,7 +537,24 @@ sol:
 [1] 18
 ```
 
+Una ventaja del lenguaje es que permite hacer referencia a una columna o a un renglón de la matriz, como si se tratara de un sólo objeto, o sea como un vector. Para ello, se omite alguno de los dos índices en la expresión de acceso a la matriz, como se muestra más adelante. En el ejemplo que se viene examinando, esos vectores estarían compuestos por números enteros, aunque los componentes de una matriz pueden ser también reales (numeric) o complejos (complex).
 
 
+```{r}
+# El renglón 3 de la matriz:
+m[3, ]
+sol:
+[1] 13 18 23 28
+
+# La columna 2 de la matriz:
+m[, 2]
+sol:
+[1] 16 17 18 19 20
+
+# La clase las columnas o renglones:
+print(class(m[3, ]))
+sol:
+[1] "integer"
+```
 
 
