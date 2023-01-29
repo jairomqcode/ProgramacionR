@@ -619,3 +619,106 @@ sol:
 [2,]  3.2 -1.1
 [3,] -5.5 60.0
 ```
+
+## 2.3.2. Acceso a los elementos individuales de una matriz.
+
+Como en los casos anteriores, el lenguaje también provee de mecanismos para acceder a los elementos individuales de una matriz. Para ello se emplea el operador []. Supongamos que en la matriz m, del ejemplo anterior se quiere tener acceso al elemento que se encuentra en el renglón 2 y en la columna 1 de la matriz. Eso se logra de la siguiente manera:
+
+```{r}
+print(m2[2, 1])
+sol:
+[1] 15
+
+Y también se pueden utilizar los nombres de renglón y columna, si es que la matriz los tiene:
+
+```{r}
+print(m["dos", "UNO"])
+sol:
+[1] 15
+```
+
+## 2.3.3. Operaciones sencillas con matrices.
+
+Todas las operaciones aritméticas válidas para vectores, son validas para las matrices, siempre y cuando, las matrices operando tengan las mismas dimensiones y se aplican elemento a elemento, esto es, la operación se aplica entre cada columna, con su correspondiente, como si fueran vectores. (véase la sección correspondiente: 2.2.5). En seguida, se muestra un ejemplo con la multiplicación, que no debe ser confundido con la multiplicación matricial.
+
+```{r}
+m <- matrix(1:15, nrow = 5, ncol = 3)
+print(m)
+sol:
+     [,1] [,2] [,3]
+[1,]    1    6   11
+[2,]    2    7   12
+[3,]    3    8   13
+[4,]    4    9   14
+[5,]    5   10   15
+
+mm <- rbind(1:3, 3:1, c(1, 1, 1), c(2, 2, 2), c(3, 3, 3)))
+print(mm)
+sol:
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    3    2    1
+[3,]    1    1    1
+[4,]    2    2    2
+[5,]    3    3    3
+
+print(m * mm)
+sol:
+     [,1] [,2] [,3]
+[1,]    1   12   33
+[2,]    6   14   12
+[3,]    3    8   13
+[4,]    8   18   28
+[5,]   15   30   45
+```
+
+La multiplicación matricial se hace con el operador %*% . Para entender esta operación, pondremos un ejemplo con dos matrices, como sigue:
+
+```{r}
+A <- matrix(1:6, 3, 2)
+print(A)
+sol:
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+
+B <- rbind(7:9, 10:12)
+print(B)
+sol:
+     [,1] [,2] [,3]
+[1,]    7    8    9
+[2,]   10   11   12
+```
+
+En el ejemplo, la matriz A será multiplicada por la matriz B, y debe notarse que, en este caso, el número de columnas de la matriz A, es igual al número de renglones de la matriz B. Los elementos de la matriz producto, estarán en las intersecciones de un renglón de la matriz A con una columna de la matriz B, y se calculan: el primer elemento del renglón de A por el primer elemento de la columna de B más el segundo elemento del renglón de A por el segundo elemento de la columna de B, etc. Este procedimiento es igual, para dimensiones mayores, siempre y cuando coincida el número de columnas de A con el número de renglones de B. En R, esta operación se hace así:
+
+```{r}
+print(A %*% B)
+sol:
+     [,1] [,2] [,3]
+[1,]   47   52   57
+[2,]   64   71   78
+[3,]   81   90   99
+```
+
+Otra operación muy utilizada e implementada en R como una función, t(), es la traspuesta de una matriz. Esta es una operación en la que los renglones se cambian a columnas y viceversa, tal como se muestra en el siguiente ejemplo:
+
+```{r}
+# Se usa la misma matriz A del ejemplo anterior:
+A <- matrix(1:6, 3, 2)
+print(A)
+sol:
+     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6
+
+# La traspuestas de A es:
+print(t(A))
+sol:
+     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6
+```
+
