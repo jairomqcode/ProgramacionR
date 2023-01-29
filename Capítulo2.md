@@ -557,4 +557,65 @@ sol:
 [1] "integer"
 ```
 
+Las matrices también se pueden crear de manera flexible por medio de la función primitiva matrix(), que permite alterar la secuencia por default de armado de la matriz; esto es, ahora, si se quiere, se puede armar la matriz por renglones en vez de columnas:
 
+```{r}
+print((m <- matrix(11:30, nrow = 5, ncol = 4, byrow = TRUE)))
+sol:
+     [,1] [,2] [,3] [,4]
+[1,]   11   12   13   14
+[2,]   15   16   17   18
+[3,]   19   20   21   22
+[4,]   23   24   25   26
+[5,]   27   28   29   30
+```
+
+Adicionalmente, a los renglones y las columnas de una matriz se les pueden asignar nombres, que pueden ser después consultados o usados como índices:
+
+```{r}
+m <- matrix(11:30, nrow = 5, ncol = 4, byrow = TRUE)
+rownames(m) <- c("uno", "dos", "tres", "cuatro", "cinco")
+colnames(m) <- c("UNO", "DOS", "TRES", "CUATRO")
+print(m)
+sol:
+       UNO DOS TRES CUATRO
+uno     11  12   13     14
+dos     15  16   17     18
+tres    19  20   21     22
+cuatro  23  24   25     26
+cinco   27  28   29     30
+
+# Consulta de los nombres de las columnas:
+print(colnames(m))
+sol:
+[1] "UNO"    "DOS"    "TRES"   "CUATRO"
+
+# Una columna:
+print(m[, "DOS"])
+sol:
+uno    dos   tres cuatro  cinco 
+ 12     16     20     24     28 
+```
+
+Las funciones rbind() y cbind(), son otras que se pueden utilizar para construir matrices, dando, ya sea los renglones individuales o las columnas individuales, respectivamente.
+
+```{r}
+m1 <- rbind(c(1.5, 3.2, -5.5), c(0, -1.1, 60))
+print(m1)
+sol:
+     [,1] [,2] [,3]
+[1,]  1.5  3.2 -5.5
+[2,]  0.0 -1.1 60.0
+
+print(class(m1[1, ]))    # ahora compuesta de números reales
+sol:
+[1] "numeric"
+
+m2 <- cbind(c(1.5, 3.2, -5.5), c(0, -1.1, 60))
+print(m2)
+sol:
+     [,1] [,2]
+[1,]  1.5  0.0
+[2,]  3.2 -1.1
+[3,] -5.5 60.0
+```
