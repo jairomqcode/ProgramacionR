@@ -14,4 +14,4 @@
 
 | Número de proyecto | Nombre del proyecto | Link del repositorio |
 | ------------------ | ------------------- | -------------------- |
-| 1 | Lanzamiento del proyectil | [Link del repositorio](https://github.com/jairomqcode/ProgramacionR/blob/b2f86615bfcc47d956d9511773945f69b94d17ec/proyecto1.md) |
+| 1 | Lanzamiento de proyectil | [Link del repositorio](https://github.com/jairomqcode/ProgramacionR/blob/b2f86615bfcc47d956d9511773945f69b94d17ec/proyecto1.md) |
