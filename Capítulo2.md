@@ -723,3 +723,113 @@ sol:
 ```
 
 Otras operaciones sencillas se introducirán más adelante.
+
+# 2.4. Factores y vectores de caracteres.
+
+Los caracteres, o más apropiadamente, las cadenas de caracteres, se utilizan para nombrar cosas u objetos del mundo. Igual que en el caso de los números, en R la clase **character** no se refiere a una cadena de caracteres aislada sino a un vector que contiene cero o más cadenas de caracteres. De este modo podríamos tener por ejemplo, una lista (o vector) con los nombres de personas, y otra, paralela a la primera, con sus meses de nacimiento:
+
+```{r}
+persona <- c("Hugo", "Paco", "Luis", "Petra", "Maria", "Fulano", "Sutano", "Perengano", "Metano", "Etano", "Propano")
+print(persona)
+sol:
+ [1] "Hugo"      "Paco"      "Luis"      "Petra"     "Maria"     "Fulano"    "Sutano"
+ [8] "Perengano" "Metano"    "Etano"     "Propano" 
+
+mes.nacimiento <- c("Dic", "Feb", "Oct", "Mar", "Feb", "Nov", "Abr", "Dic", "Feb", "Oct", "Dic")
+print(mes.nacimiento)
+sol:
+ [1] "Dic" "Feb" "Oct" "Mar" "Feb" "Nov" "Abr" "Dic" "Feb" "Oct" "Dic"
+ ```
+ 
+Así, si se quiere imprimir el nombre de la persona 7 con su mes de nacimiento se puede hacer con:
+
+```{r}
+print(persona[7]); print(mes.nacimiento[7])
+sol:
+[1] "Sutano"
+[1] "Abr"
+
+# De una manera más "pulcra":
+print(c(persona[7], mes.nacimiento[7]))
+sol:
+[1] "Sutano" "Abr"
+```
+
+La función **paste()** permite concatenar cadenas de caracteres y por medio de ella se puede dar incluso una mejor apariencia a la salida:
+
+```{r}
+paste(persona[7], "nacio en el mes de", mes.nacimiento[7])
+sol:
+"Sutano nacio en el mes de Abr"
+```
+
+## 2.4.1. Los factores y su estructura.
+
+Los dos vectores anteriores pueden considerarse como una estructura de información, a la que se puede someter a algún tipo de procesamiento estadístico. El lenguaje tiene muchas herramientas para ese propósito. Considérese, por ejemplo, el problema de determinar la frecuencia de aparición de ciertos meses en el vector **mes.nacimiento**. En este caso, el lenguaje provee de una clase que facilita este tipo de análisis, a saber: la clase factor. Para entender esta clase, procedamos primeramente a transformar el vector **mes.nacimiento** a un factor, mediante la función de conversión **as.factor()**, como sigue:
+
+```{r}
+Fmes.nacimiento <- as.factor(mes.nacimiento)
+print(Fmes.nacimiento)
+sol:
+[1] Dic Feb Oct Mar Feb Nov Abr Dic Feb Oct Dic
+Levels: Abr Dic Feb Mar Nov Oct
+
+# y generamos la impresión ahora con el factor:
+print(paste(persona[7], "nacio en el mes de", Fmes.nacimiento[7]))
+sol:
+[1] "Sutano nacio en el mes de Abr"
+```
+
+Si se compara la impresión del factor **Fmes.nacimiento** con la del vector **mes.nacimiento**, se podría pensar que “no ha pasado mucho”. De hecho, la impresión bonita con la función **paste()**, ha resultado igual. Sin embargo, el **factor** exhibe una estructura adicional denominada **Levels**, en la que se han registrado e identificado los elementos del vector sin repetición; esto es, los nombres únicos de los meses, en este caso. La estructura interna de esta clase se puede descubrir:
+
+```{r}
+print(unclass(Fmes.nacimiento))
+sol:
+[1] 2 3 6 4 3 5 1 2 3 6 2
+attr(,"levels")
+[1] "Abr" "Dic" "Feb" "Mar" "Nov" "Oct"
+```
+
+Como se puede ver, el núcleo de la clase son dos vectores. El primero, es un vector de índices enteros, que sustituye al vector de caracteres original, y el segundo es un vector de caracteres, que contiene los niveles (Levels) o categorías, a los que hace referencia el primer vector. Abordemos ahora el problema que motivó la presente discusión: la frecuencia de aparición de ciertos elementos en un vector. La función **table()** toma típicamente como argumento un factor y regresa como resultado justamente la frecuencia de aparición de los niveles en el vector de índices:
+
+```{r}
+print(table(Fmes.nacimiento))
+sol:
+Fmes.nacimiento
+Abr Dic Feb Mar Nov Oct 
+ 1   3   3   1   1   2 
+```
+
+La interpretación de estos resultados en el contexto de la estructura de información original, es que, por ejemplo, 3 personas del vector persona, nacieron en el mes de Dic. En el ejemplo mostrado, los niveles o Levels aparecen ordenados alfabéticamente. La creación de factores en los que se establezca un orden determinado en los niveles, se puede hacer con la función factor(), como se muestra:
+
+```{r}
+meses <- c("Ene","Feb","Mar","Abr","May","Jun","Jul","Ago",
+
+"Sep","Oct","Nov","Dic")
+
+# Se incluyen meses que no están en el vector original:
+FFmes.nacimiento <- factor(mes.nacimiento, levels=meses)
+print(FFmes.nacimiento)
+sol:
+[1] Dic Feb Oct Mar Feb Nov Abr Dic Feb Oct Dic
+Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic
+
+# Ahora la tabla de frecuencias es:
+print(table(FFmes.nacimiento))
+sol:
+FFmes.nacimiento
+Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic 
+  0   3   1   1   0   0   0   0   0   2   1   3 
+```
+
+Debe notarse que la función **table()** pudiera haber recibido como argumento directamente el vector de caracteres original, y hubiera producido el resultado deseado, como se muestra:
+
+```{r}
+print(table(mes.nacimiento))
+sol:
+mes.nacimiento
+Abr Dic Feb Mar Nov Oct 
+ 1   3   3   1   1   2 
+```
+
+La razón es simple: el intérprete del lenguaje sabe que la función está esperando recibir un factor y en consecuencia trata de convertir, en automático, el argumento que recibe, a esa clase. Como la conversión de vectores de caracteres a factores es trivial, la función no tiene ningún problema en desarrollar su tarea.
