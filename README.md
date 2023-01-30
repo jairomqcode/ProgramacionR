@@ -14,4 +14,5 @@
 
 | Número de proyecto | Nombre del proyecto | Link del repositorio |
 | ------------------ | ------------------- | -------------------- |
-| 1 | Lanzamiento de proyectil | [Link del repositorio](https://github.com/jairomqcode/ProgramacionR/blob/b2f86615bfcc47d956d9511773945f69b94d17ec/proyecto1.md) |
+| 1 | Lanzamiento de proyectil | [Link](https://github.com/jairomqcode/ProgramacionR/blob/b2f86615bfcc47d956d9511773945f69b94d17ec/proyecto1.md) |
+| 2 | Rotación del triángulo | [Link](https://github.com/jairomqcode/ProgramacionR/blob/9c817ca5835178010f10de3037d04981f152a638/proyecto2.md) |
