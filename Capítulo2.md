@@ -962,3 +962,137 @@ sol:
 
 En el último caso, el operador ha recibido como argumento la función **paste()**, que, como se ha dicho anteriormentre, sirve para concatenar cadenas de caracteres. Esta función supone de inicio que las cadenas irán separadas por un espacio en blanco. Por ello es que, en el ejemplo se indica que el separador es vacío mediante **sep=""**. Alternativamente, para este último caso, se puede usar la función **paste0()**, que de entrada supone que tal separador es vacío.
 
+## 2.6. Data frames.
+
+Un **data frame** es una lista, cuyos componentes pueden ser vectores, matrices o factores, con la única salvedad de que las longitudes, o número de renglones, en el caso de matrices, deben coincidir en todos los componentes. La apariencia de un **data frame** es la de una tabla y una forma de crearlos es mediante la función **data.frame()**. Veamos un ejemplo:
+
+```{r}
+m <- cbind(ord=1:3, edad=c(30L, 26L, 9L))
+print(m)
+sol:
+     ord edad
+[1,]   1   30
+[2,]   2   26
+[3,]   3    9
+
+v <- c(1.80, 1.72, 1.05)
+print(v)
+sol:
+[1] 1.80 1.72 1.05
+
+ff <- data.frame(familia=c("Padre", "Madre", "Hijo"), m, estatura=v)
+print(ff)
+sol:
+  familia ord edad estatura
+1   Padre   1   30     1.80
+2   Madre   2   26     1.72
+3    Hijo   3    9     1.05
+```
+
+Una gran ventaja de los data frames, es que R tiene diversas funciones para leer y guardar las tablas que representan, en archivos de texto, y otros formatos. Como un ejemplo, supongamos que se tiene un archivo, denominado “Rtext.txt”, la siguiente información:
+
+```{r}
+   Precio   Piso  Area  Cuartos Edad Calentador
+01  52.00  111.0  830      5    6.2     no
+02  54.75  128.0  710      5    7.5     no
+03  57.50  101.0  1000     5    4.2     no
+04 57.50   131.0  690      6    8.8     no
+05 59.75    93.0  900      5    1.9     si
+```
+
+La lectura de esta tabla hacia un data frame, es muy sencilla y se hace mediante la función **read.table()**, como sigue:
+
+```{r}
+mi.tabla <- read.table("Rtext.txt")
+print(mi.tabla)
+sol:
+   Precio Piso  Area Cuartos Edad Calentador
+01 52.00   111  830     5     6.2     no
+02 54.75   128  710     5     7.5     no
+03 57.50   101  1000    5     4.2     no
+04 57.50   131  690     6     8.8     no
+05 59.75    93  900     5     1.9     si
+```
+
+Nótese que el primer renglón y la primera columna no son parte de los datos de la tabla; ellos son, respectivamente, los nombres de las columnas y renglones de la tabla o data frame, lo que podemos constatar mediante las funciones colnames() y rownames():
+
+```{r}
+colnames(mi.tabla)
+sol:
+[1] "Precio" "Piso" "Area" "Cuartos"
+[5] "Edad" "Calentador"
+
+rownames(mi.tabla)
+sol:
+[1] "01" "02" "03" "04" "05"
+```
+
+Como se mencionó anteriormente, un data frame es una lista muy particular, pero, ¿cuáles son los elementos de esa lista? Los elementos de la lista, y que obedecen a todas las reglas sintácticas dadas anteriormente (ver sección 2.5.1), son las columnas de la tabla. Así, por ejemplo, al segundo elemento de la lista podemos tener acceso de las siguientes formas:
+
+```{r}
+print(mi.tabla$Piso)
+sol:
+[1] 111 128 101 131 93
+
+print(mi.tabla[[2]])
+sol:
+[1] 111 128 101 131 93
+
+print(mi.tabla[2])
+sol:
+   Piso
+01 111
+02 128
+03 101
+04 131
+05 93
+```
+
+En el último caso, los datos se despliegan junto con el nombre de la columna y cada uno de los nombres de los renglones. Ello se debe a que en realidad, el operador [] extrae una rebanada del dato o variable sobre la cuál opera, un data frame en este caso, y que podríamos denominarlo como un sub-data frame aquí; esto es, se trata otra vez de un data frame pero más chiquito que el original.
+
+Para tener acceso a un elemento individual de un data frame, se utiliza el operador [], con la misma sintaxis que se utilizó para las matrices. Por ejemplo, el elemento en el renglón 3 y la columna 2, se puede revisar, o incluso cambiar con:
+
+```{r}
+print(mi.tabla[3, 2])
+sol:
+[1] 101
+
+# modificamos el elemento con:
+mi.tabla[3, 2] <- 106
+print(mi.tabla)
+sol:
+   Precio Piso Area Cuartos Edad Calentador
+01  52.00 111  830     5    6.2     no
+02  54.75 128  710     5    7.5     no
+03  57.50 106  1000    5    4.2     no
+04  57.50 131  690     6    8.8     no
+05  59.75 93   900     5    1.9     si
+```
+
+Otra característica importante de los data frames es que, salvo que se indique otra cosa, las columnas de tipo character se convierten automáticamente a tipo factor:
+
+```{r}
+print(mi.tabla$Calentador)
+sol:
+[1] no no no no si
+Levels: no si
+
+print(class(mi.tabla$Calentador))
+sol:
+[1] "factor"
+```
+
+La posibilidad de operar con rebanadas de los data frames, es una de las cosas que hacen más atractivas a esta estructura. Si, por ejemplo, se quiere añadir, una nueva columna o componente del data frame, y ésta calcularla como el resultado de multiplicar el Precio por el Área, se puede hacer de la siguiente manera:
+
+```{r}
+mi.tabla$Total <- mi.tabla$Precio * mi.tabla$Area
+print(mi.tabla)
+sol:
+   Precio Piso Area Cuartos Edad Calentador Total
+01 52.00   111 830     5     6.2    no      43160
+02 54.75   128 710     5     7.5    no      38872
+03 57.50   106 1000    5     4.2    no      57500
+04 57.50   131 690     6     8.8    no      39675
+05 59.75    93 900     5     1.9    si      53775
+```
+
