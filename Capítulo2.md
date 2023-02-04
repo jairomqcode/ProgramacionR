@@ -1096,3 +1096,65 @@ sol:
 05 59.75    93 900     5     1.9    si      53775
 ```
 
+## 2.7. Funciones.
+
+A diferencia de otros lenguajes de programación procedurales, como C, Java, y PHP, en R las funciones constituyen una clase. Por ejemplo, los objetos de esa clase pueden ser asignados a variables; podría darse el caso, incluso, de armar una lista cuyos elementos fueran funciones.
+
+Aunque la escritura de funciones es parte de la programación que se verá más adelante, se indicará aquí la forma de crear funciones como una herramienta para agrupar varias operaciones. La sintaxis para la creación de una función es como sigue:
+
+```{r}
+variable <- function(arg_1, arg_2, ..., arg_n) expresion
+```
+
+Como se puede ver, se trata de una asignación de un valor: la función, a una variable. A partir de esa definición, la variable se puede utilizar como el nombre de la función. En R, toda expresión tiene un valor, así que el valor de la expresión será lo que la función regresará cuando se aplique. En seguida se muestra un ejemplo.
+
+```{r}
+hipotenusa <- function(x, y) {sqrt(x^2 + y^2)}
+print(class(hipotenusa))
+sol:
+[1] "function"
+```
+
+En este caso, la función de biblioteca sqrt(), entrega la raíz cuadrada, y el operador ^, eleva un valor a la potencia indicada como segundo argumento. La función entrega como resultado el último valor calculado que encuentre, aunque esta entrega se pude hacer explícita mediante la instrucción return, con lo cual la función anterior podría alternativamente ser codificada como:
+
+```{r}
+hipotenusa <- function(x, y) {return(sqrt(x^2 + y^2))
+print(hipotenusa(3, 4))
+sol:
+[1] 5
+}
+
+Los argumentos de la función tienen nombres, y esos se pueden usar en el llamado a la función, cambiando incluso el orden en que aparecen en la definición de la función.
+
+```{r}
+print(hipotenusa(y = 4, x = 3))
+sol:
+[1] 5
+```
+
+Otra característica es que las funciones, en su definición, pueden tener valores asignados por defecto o en ausencia cuando es llamada la función:
+
+```{r}
+# valores por ausencia
+hipotenusa <- function(x=3, y=4){return(sqrt(x^2 + y^2))}
+print(hipotenusa())
+sol:
+[1] 5
+```
+
+Las funciones toman sus datos de los argumentos dados o de las variables que “le están al alcance” a la función, así por ejemplo, la siguiente función:
+
+```{r}
+PI <- 3.1416
+ff <- function(r) {return(PI * r^2)}
+```
+
+si se ejecuta esta función, por ejemplo, con ff(3), puede disparar un error, ya que no se ha definido el valor de PI. Pero si se ejecuta en la siguiente secuencia, se obtendrá un valor, aun cuando la función se haya definido con anterioridad:
+
+```{r}
+print(ff(3))
+sol:
+[1] 28.27
+```
+
+La noción de función que se ha presentado aquí es muy básica. En un capítulo posterior se presenta la creación de funciones enriquecida por las estructuras de control que se discutirán también más adelante.
