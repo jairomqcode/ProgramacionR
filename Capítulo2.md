@@ -1170,6 +1170,68 @@ x <- 1.03
 print(x)
 Sol:
 [1] 1.03
+     
+y <- as.integer(x) # conversión a entero
+print(y)
+sol:
+[1] 1
+     
+z <- as.complex(y) # conversión a complejo
+print(z)
+sol:
+[1] 1+0i
+     
+a <- c("1000", "2013.1", "0")
+print(class(a))
+sol:
+[1] "character"
+     
+b <- as.numeric(a) # conversión de character a otro tipo
+print(b)
+sol:
+[1] 1000 2013 0
+     
+print(class(b))
+sol:
+[1] "numeric"
+     
+c <- as.logical(b) # conversión a lógico
+# 0 es FALSE y distinto de 0 es TRUE
+print(c)
+sol:
+[1] TRUE TRUE FALSE   
+```
+
+También, puede haber conversiones entre clases de datos más estructuradas. Una que se antoja inmediata es la conversión de una matriz a un data frame:
+    
+```{r}
+m <- matrix(1:20, nrow = 5, ncol = 4)
+print(m)
+sol:
+   [,1] [,2] [,3] [,4]
+[1,] 1    6   11   16
+[2,] 2    7   12   17
+[3,] 3    8   13   18
+[4,] 4    9   14   19
+[5,] 5   10   15   20
+     
+ff <- as.data.frame(m)
+print(ff)
+sol:
+     V1 V2 V3 V4
+   1  1  6 11 16
+   2  2  7 12 17
+   3  3  8 13 18
+   4  4  9 14 19
+   5  5  10 15 20
 ```
      
-    
+Nótese, en este último caso, que la función de conversión automáticamente ha asignado nombres a los renglones y las columnas del data frame creado. Para tener acceso a los elementos del data frame, lo podemos hacer mediante los nombres asignados a las columnas:
+     
+```{r}
+print(ff$V2)
+sol:
+[1] 6 7 8 9 10
+```
+     
+Existen muchas más conversiones posibles; pero baste por ahora con las que se han visto, que ellas dan una idea de los mecanismos usados en el lenguaje para este tipo de operaciones.
