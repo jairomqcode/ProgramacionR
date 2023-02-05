@@ -1158,3 +1158,18 @@ sol:
 ```
 
 La noción de función que se ha presentado aquí es muy básica. En un capítulo posterior se presenta la creación de funciones enriquecida por las estructuras de control que se discutirán también más adelante.
+
+## 2.8. Coerción.
+
+Se han abordado en este capítulo, no de una manera exhaustiva, pero sí para tener una idea clara de su potencial, los principales tipos de datos del lenguaje R. Estos tipos de datos son el fundamento para la construcción de otras clases de datos más complejas. Algunos de los tipos de datos admiten su conversión a otros tipos; para ello, el lenguaje provee de un conjunto de funciones de la forma: **as.<tipo>()**. En seguida se muestran algunos ejemplos.
+
+Distintas conversiones entre datos numéricos:    
+ 
+```{r}
+x <- 1.03
+print(x)
+Sol:
+[1] 1.03
+```
+     
+    
