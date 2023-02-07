@@ -12,3 +12,10 @@ Los operadores de acceso a los datos estructurados: vectores, matrices, factores
 
 ## 3.2. El operador **[]**.
 
+En el capítulo anterior se ha visto el uso de este operador para seleccionar o tener acceso a elementos individuales de distintos tipos de datos estructurados: vectores, matrices, factores, listas y data frames. Se visitarán nuevamente esos tipos de datos estructurados, pero para un uso más elaborado del operador.
+
+### 3.2.1. Vectores y factores.
+
+Tanto los vectores como los factores son estructuras unidimensionales, de este modo, el uso del operador **[]** es semejante en ambos. Anteriormente se ha visto como seleccionar un elemento de ambas estructuras. Veremos ahora como seleccionar grupos de elementos.
+
+#### 3.2.1.1. Selección de una secuencia de elementos, o elementos particulares.
