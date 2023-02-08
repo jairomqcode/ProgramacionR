@@ -132,3 +132,46 @@ sol:
 [1] 0.9568723 1.7556112 1.1870790 1.7976240 0.6778322 0.1656010 0.6264270
 ```
 
+Para factores solo las operaciones lógicas para probar la igualdad o desigualdad tienen significado:
+
+```{r}
+print(Fmes.nacimiento == "Mar") # igualdad
+sol:
+[1] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+
+print(Fmes.nacimiento != "Mar") # desigualdad
+sol:
+[1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+```
+
+No obstante, dado que, como se ha señalado en la sección 2.4.1, los factores tienen implícito un vector de enteros, que indexan el orden establecido por los Levels (niveles) del factor, se puede usar ese hecho para descubrir, en el caso de ejemplo, cuáles son los meses menores o iguales que “Abr” (número de orden 4, en Levels), de la siguiente manera:
+
+```{r}
+# El factor convertido a enteros:
+print(as.integer(Fmes.nacimiento))
+sol:
+[1] 12  2 10  3  2 11  4 12  2 10 12
+
+# El vector de logicos:
+print(as.integer(Fmes.nacimiento) <= 4)
+sol:
+[1] FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE
+
+
+# .. y usado como indice:
+print(Fmes.nacimiento[as.integer(Fmes.nacimiento) <= 4])
+sol:
+[1] Feb Mar Feb Abr Feb
+Levels: Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic
+```
+
+Una nota importante es que los operadores de selección no solamente se usan para consultar los valores, sino que también se pueden emplear para cambiar los valores de los elementos seleccionados mediante el operador. Así por ejemplo, podríamos cambiar cada uno los elementos negativos del vector v, a su correspondiente positivo, mediante la siguiente asignación:
+
+```{r}
+v[v < 0] <- -v[v < 0]
+# .. y el vector v ahora es:
+print(v)
+sol:
+ [1] 0.9568723 0.1671858 0.5170983 0.2140801 0.1453487 0.7277275 1.7556112 1.1870790 2.0023327 1.6967370 0.7265532 1.7976240
+[13] 0.7226971 0.6689269 0.4014883 0.6778322 0.1656010 0.6264270 1.6318052 0.3667483
+```
