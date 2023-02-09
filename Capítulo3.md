@@ -175,3 +175,41 @@ sol:
  [1] 0.9568723 0.1671858 0.5170983 0.2140801 0.1453487 0.7277275 1.7556112 1.1870790 2.0023327 1.6967370 0.7265532 1.7976240
 [13] 0.7226971 0.6689269 0.4014883 0.6778322 0.1656010 0.6264270 1.6318052 0.3667483
 ```
+
+# 3.2.2. Matrices y data frames.
+
+Las matrices y los data frames, son estructuras bidimensionales; es decir, tienen renglones y columnas, y por consiguiente, su comportamiento bajo el operador [] es similar. Como se ha visto en el capítulo 2, el acceso a los elementos individuales a estas dos estructuras consta de dos índices, separados por una coma, en el operador, así: **x[i, j]**; donde, x, es la estructura en cuestión, i, representa el número o identificador de renglón y j, el número o identificador de columna. 
+
+Para las explicaciones y ejemplos que siguen se usarán las matrices y data frames que se generan a continuación:
+
+```{r}
+mt <- matrix(11:30, nrow = 4, ncol = 5)
+print(mt)
+sol:
+    [,1] [,2] [,3] [,4] [,5]
+[1,]  11   15   19   23   27
+[2,]  12   16   20   24   28
+[3,]  13   17   21   25   29
+[4,]  14   18   22   26   30
+
+# Se convierte la matriz a un data frame:
+df.mt <- as.data.frame(mt)
+print(df.mt)
+sol:
+  V1 V2 V3 V4 V5
+1 11 15 19 23 27
+2 12 16 20 24 28
+3 13 17 21 25 29
+4 14 18 22 26 30
+
+# Se le asignan nombres a renglones y columnas de df.mt:
+rownames(df.mt) <- c("uno", "dos", "tres", "cuatro")
+colnames(df.mt) <- c("UNO", "DOS", "TRES", "CUATRO", "CINCO")
+print(df.mt)
+sol:
+       UNO DOS TRES CUATRO CINCO
+uno     11  15   19     23    27
+dos     12  16   20     24    28
+tres    13  17   21     25    29
+cuatro  14  18   22     26    30
+```
