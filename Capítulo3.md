@@ -371,3 +371,109 @@ tres     25   21  17
 ```
 
 En este caso, como en el ejemplo anterior, se ha cambiado el orden de la secuencia de columnas en la ventana resultante, lo que, por cierto, resulta más evidente en el caso del data frame por el uso de nombres tanto para columnas como para renglones.
+
+#### 3.2.2.3. El uso de índices lógicos o condiciones.
+
+Al igual que en el caso de los vectores y los factores, este operador admite índices de tipo lógico, que resultan de la expresión de condiciones, que pueden ser tan complicadas como se quiera. Se verán aquí algunos ejemplos sencillos tanto para el caso de matrices como para el caso de data frames.
+
+En la matriz y el data frame del ejemplo anterior, el segundo renglón se puede obtener fácilmente de la siguiente manera:
+
+```{r}
+print(mt[2, ])
+sol:
+[1] 12 16 20 24 28
+
+print(df.mt[2, ])
+sol:
+    UNO DOS TRES CUATRO CINCO
+dos  12  16   20     24    28
+```
+
+Ahora, supóngase que se quiere obtener ese mismo renglón, pero basado en el hecho de que el valor en la columna 2 es 16. Esto es: obtener el renglón, o renglones, cuyo valor en la columna 2 es 16. Primeramente, obsérvese que todos los valores en la columna 2 de la matriz o del data frame, se pueden comparar contra el valor 16, de la siguientes maneras:
+
+```{r}
+print(mt[, 2] == 16)
+sol:
+[1] FALSE TRUE FALSE FALSE
+
+print(df.mt[, 2] == 16)
+sol:
+[1] FALSE TRUE FALSE FALSE
+```
+
+Como se puede ver el resultado es un vector de lógicos, cada uno de los cuales corresponde a la comparación por igualdad de cada uno de los elementos en la columna dos contra el valor 16; esto es, en cada uno de los renglones de esa columna. Esta comparación se puede utilizar como índice en el espacio correspondiente a los renglones en el operador [], para obtener los renglones que cumplen con la condición establecida. En este caso el arreglo de lógicos resultante de la condición actúa como una máscara o un filtro que sólo deja pasar, de la matriz, aquellos elementos para los cuales hay un valor TRUE, como se muestra a continuación:
+
+```{r}
+# Se usan paréntesis, (), para enfatizar la condición, aunque se podría prescindir de ellos:
+print(mt[(mt[, 2] == 16), ])
+sol:
+[1] 12 16 20 24 28
+
+
+print(df.mt[(df.mt[, 2] == 16), ])
+sol:
+   UNO DOS TRES CUATRO CINCO
+dos 12  16  20    24     28
+
+# En el caso de la matriz, si se quiere obtener como salida una matriz (de un solo renglón), se hace así:
+print(mt[(mt[, 2] == 16), , drop = FALSE])
+sol:
+    [,1] [,2] [,3] [,4] [,5]
+[1,] 12    16   20   24   28
+```
+
+Modifiquemos ahora la matriz y el data frame, para tener más de un renglón que cumple con esta condición:
+
+```{r}
+mt[4, 2] <- 16L
+df.mt[4, 2] <- 16L
+print(mt)  # El data frame es semejante
+sol:
+    [,1] [,2] [,3] [,4] [,5]
+[1,]   11   15   19   23   27
+[2,]   12   16   20   24   28
+[3,]   13   17   21   25   29
+[4,]   14   16   22   26   30
+```
+
+Y ahora, si se aplica nuevamente la operación de prueba, lo que se obtiene es un conjunto de renglones:
+
+```{r}
+print(mt[(mt[, 2] == 16), ])
+sol:
+    [,1] [,2] [,3] [,4] [,5]
+[1,]   12   16   20   24   28
+[2,]   14   16   22   26   30
+
+print(df.mt[(df.mt[, 2] == 16), ])
+sol:
+       UNO DOS TRES CUATRO CINCO
+dos     12  16   20     24    28
+cuatro  14  16   22     26    30
+```
+
+Las expresiones o pruebas lógicas usadas como índices pueden ser más complejas si se quiere. Supongamos que se quiere obtener, todas las columnas que en su renglón 2 no son múltiplos de 8; esto se hace como se muestra en seguida.
+
+```{r}
+# La prueba lógica hace uso del operador módulo o residuo: %%
+print(mt[2, ]%%8 != 0) # (Para el data frame es semejante)
+sol:
+[1] TRUE FALSE TRUE FALSE TRUE
+
+# Ahora usemos la expresión como índice:
+print(mt[, (mt[2, ]%%8 != 0)])
+sol:
+     [,1] [,2] [,3]
+[1,]   11   19   27
+[2,]   12   20   28
+[3,]   13   21   29
+[4,]   14   22   30
+
+print(df.mt[, (df.mt[2, ]%%8 != 0)])
+sol:
+       UNO TRES CINCO
+uno     11   19    27
+dos     12   20    28
+tres    13   21    29
+cuatro  14   22    30
+```
