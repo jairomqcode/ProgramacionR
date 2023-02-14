@@ -597,5 +597,3 @@ print(df.mt[["TR", exact = F]])  # Recuerde F es FALSE
 sol:
 [1] 19 20 21 22
 ```
-
-La riqueza en el uso de estos operadores se irá descubriendo a medida que se incorporen otras características del lenguaje que se estudiarán en los capítulos siguientes.
