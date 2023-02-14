@@ -477,3 +477,125 @@ dos     12   20    28
 tres    13   21    29
 cuatro  14   22    30
 ```
+
+## 3.3. Los operadores [[]] y $.
+
+Los operadores **[[]]** y **$**, son más o menos semejantes, aunque éste último limita su aplicación a las listas y, por consiguiente, también a los data frames. Estos operadores establecen formas de tener acceso a los elementos de las distintas estructuras mediante los nombres o identificadores asignados a esos elementos. Si bien es cierto que el operador **[]**, admite también nombres de los elementos como índices, como se ha mostrado en la sección 2.2.4, los operadores discutidos en esta sección habilitan formas más flexibles de tener acceso a los elementos de las estructuras mediante sus nombres, amenos de que ese acceso va a un nivel más profundo. Para comprender esto, piénsese en el siguiente símil: sea la estructura sobre la que actúan los operadores como una bodega que contiene cajas, que a su vez contienen distintos objetos. En general, el operador **[]**, podría considerarse como un dispositivo que mueve algunas de las cajas a otra, por así decirlo, sub-bodega o bodega más pequeña, y ese sería el resultado de la operación; es decir, entrega la sub-bodega con las cajas seleccionadas, mientras que los otros operadores entregan las cajas o incluso el contenido de éstas.
+
+A manera de comparación, se dotará a la matriz mt, utilizada anteriormente, de nombres para sus columnas y renglones:
+
+```{r}
+rownames(mt) <- c("uno", "dos", "tres", "cuatro")
+colnames(mt) <- c("UNO", "DOS", "TRES", "CUATRO", "CINCO")
+print(mt)
+sol:
+       UNO DOS TRES CUATRO CINCO
+uno     11  15   19     23    27
+dos     12  16   20     24    28
+tres    13  17   21     25    29
+cuatro  14  18   22     26    30
+```
+
+Aquí, el acceso a renglones y columnas por nombres, mediante el operador [], da resultados semejantes tanto en matrices como en data frames:
+
+```{r}
+print(mt[, "TRES"])
+sol:
+   uno    dos   tres cuatro 
+   19     20     21     22 
+   
+print(df.mt[, "TRES"])
+sol:
+[1] 19 20 21 22
+
+print(mt["dos", ])
+sol:
+UNO    DOS   TRES  CUATRO  CINCO 
+12     16     20     24     28 
+
+print(df.mt["dos", ])
+sol:
+     UNO DOS TRES CUATRO CINCO
+dos  12  16   20     24    28
+
+# Para comparación con el operador [[]]:
+print(mt["dos", "TRES", drop = F])
+sol:
+    TRES
+dos  20
+
+print(class(mt["dos", "TRES", drop = F]))  # La clase del objeto
+sol:
+[1] "matrix" "array" 
+
+print(df.mt["dos", "TRES", drop = F])  # F es lo mismo que FALSE
+sol:
+    TRES
+dos   20
+
+print(class(df.mt["dos", "TRES", drop = F]))  # La clase del objeto
+sol:
+[1] "data.frame"
+```
+
+Como se ha dicho anteriormente, un data frame es una lista muy particular, cuyos componentes son las columnas del data frame, mismas que siempre tienen la misma longitud, y que en el caso del ejemplo, df.mt, es exactamente 4. De este modo, lo que se diga aquí para los data frames, con referencia a los operadores estudiados, en general es también válido para las listas. El operador **[[]]**, permite el acceso a esos componentes, ya sea mediante índices numéricos o los nombres provistos a los elementos de las estructuras. Así, para los dos últimos casos mostrados anteriormente:
+
+```{r}
+print(mt[[2, 3]])
+sol:
+[1] 20
+
+print(mt[["dos", "TRES"]])
+sol:
+[1] 20
+
+print(class(mt[["dos", "TRES"]]))
+sol:
+[1] "integer"
+
+print(df.mt[[2, 3]])
+sol:
+[1] 20
+
+print(class(df.mt[[2, 3]]))
+sol:
+[1] "integer"
+
+print(df.mt[["dos", "TRES"]])
+sol:
+[1] 20
+```
+
+Nótese que a diferencia con el operador **[]**, el operador **[[]]**, no entrega en ni una matriz, ni un data frame, sino un vector entero de un solo elemento, en este caso. Compárese con los dos últimos casos del ejemplo anterior. Otra diferencia importante de este operador es que no admite ni rangos, ni conjuntos de índices; esto es, para cada espacio en el operador sólo admite ya sea un índice entero o una cadena de caracteres que identifica el nombre de algún elemento de la estructura sobre la que opera.
+
+El operador **$**, es semejante pero sólo actúa sobre la estructura unidimensional de una lista o de un data frame. La diferencia de este operador con el operador **[[]]**, es que los nombres de los elementos no necesitan ir entre comillas, y pueden estar incompletos, cuando no hay ambigüedad en la identificación de los elementos a los cuales se refieren. Esta característica resulta más útil cuando se trabaja con el lenguaje directamente desde la consola, o sea, interactivamente, ya que puede representar alguna economía en la escritura de las expresiones.
+
+```{r}
+print(df.mt[["TRES"]])
+sol:
+[1] 19 20 21 22
+
+print(df.mt$TRES)
+sol:
+[1] 19 20 21 22
+
+print(df.mt$"TRES")
+sol:
+[1] 19 20 21 22
+
+print(df.mt$T)
+sol:
+[1] 19 20 21 22
+```
+
+Nótese que en el código anterior, el intérprete del lenguaje se ha quejado emitiendo un “Warning”, que no representa ningún problema, ya que sólo informa que se ha hecho una identificación con un nombre incompleto.
+
+El operador **[[]]**, también admite nombres incompletos, pero ese comportamiento tiene que ser señalado explícitamente por medio de la opción exact= FALSE, en el operador:
+
+```{r}
+print(df.mt[["TR", exact = F]])  # Recuerde F es FALSE
+sol:
+[1] 19 20 21 22
+```
+
+La riqueza en el uso de estos operadores se irá descubriendo a medida que se incorporen otras características del lenguaje que se estudiarán en los capítulos siguientes.
