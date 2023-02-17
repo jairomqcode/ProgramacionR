@@ -170,3 +170,49 @@ En este ejemplo, el objetivo se ha alcanzado en 8 iteraciones. Se ha utilizado l
 
 Un caso parecido de salida o interrupción de un ciclo es la instrucción **return**. Esta instrucción está asociada con las funciones y su propósito es interrumpir u obligar la salida de la función en la cuál se invoca, entregando, opcionalmente, como resultado de la función un valor si se da como argumento del return. De esta manera, la interrupción de un ciclo es realmente colateral, pero igualmente efectiva, solamente que la salida de ciclo no es exactamente afuera de él, sino afuera de la ejecución de la función en la que se ha invocado. Como un ejemplo, se creará y ejecutará una función: la función generadora de los números de fibbonacci, que, tenidos o dados los dos primeros números de fibbonacci, F0 y F1 , definidos ambos como 1, calcula cada uno de los siguientes como la suma de los dos anteriores.
 
+```{r}
+# Primero se crea la función:
+fibbonacci <- function(n) {
+  if (n %in% c(0,1))
+    return (1)
+  
+  F0 <- 1; F1 <- 1; i <- 2
+  repeat {
+    s <- F0 + F1 # Suma de los fib anteriores
+    if (i == n) # Ya es el que se busca
+      return (s) # Sale hasta afuera de la función
+    
+    # recorremos los últimos dos próximos números
+    F0 <- F1
+    F1 <- s
+    i <- i+1 # incrementamos el índice
+  }
+}
+
+# El octavo número de fibbonacci se genera
+# llamando a la función así:
+fibbonacci(8)
+
+sol:
+[1] 34
+```
+
+Esta función utiliza el operador %in%, que identifica si un cierto elemento está dentro de un conjunto representado por un vector. La instrucción **return**, es una función primitiva que termina la ejecución de una función y entrega como resultado de la función el argumento que se le pase. En el caso del ejemplo, se ha usado dos veces: la primera, simplemente detecta si el argumento es 0 o 1, en cuyo caso termina la función y entrega 1 como resultado; la segunda vez, que es la que nos interesa, se usa dentro de la instrucción **repeat** para determinar si ya se ha llegado al número fibbonacci correspondiente, en cuyo caso termina allí la función y entrega como resultado el número correspondiente.
+
+La instrucción **next** interrumpe el flujo normal de ejecución de un programa de una manera diferente: en vez de salir de un ciclo, solamente impide la ejecución de las instrucciones siguientes y regresa al principio del ciclo para ejecutar la siguiente iteración. El siguiente ejemplo ilustra esta operación:
+
+```{r}
+for (i in 1:7) {
+  if (3 <= i && i <= 5)
+    next
+  print(i)
+}
+
+sol:
+[1] 1
+[1] 2
+[1] 6
+[1] 7
+```
+
+Hasta aquí, se han visto diferentes estructuras de control que, al igual que otros lenguajes de programación, permiten definir el flujo de ejecución de las instrucciones de algún programa. A través de estas estructuras de control se pueden manipular los elementos de las clases de datos compuestas. La riqueza de este lenguaje, sin embargo, está en el manejo de cada una de las distintas estructuras de información, implementadas a través de las clases de datos estructuradas, como vectores, factores, data frames, etc., como un todo a través de funciones que las contemplan de esa manera.
