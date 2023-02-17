@@ -41,7 +41,7 @@ print("RANGO MENOR")
 } else if ( 10 <= aa && aa <= 20) { # 2o. bloque
 print("primer renglon"); print("RANGO MEDIO")
 } else { # 3er. bloque
-print("RANGO MAYOR")
+print("RANGO MAYOR")}
 
 sol: 
 [1] "primer renglon"
