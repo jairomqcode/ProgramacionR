@@ -107,3 +107,66 @@ sol:
 
 En el primer caso se llamó a la función **seq_along()**, que genera una secuencia de enteros de acuerdo con el número de elementos que tenga el objeto que se le de como argumento. El segundo caso, tipifica la esencia de la construcción **for**, ya que se trata de ir tomando uno a uno los elementos del objeto consignado después de la partícula **in** del **for**.
 
+### 4.2.2. Repeticiones mientras se cumple una condición.
+
+La construcción que habilita esta operación es la instrucción **while**, que se puede ejemplificar como sigue:
+
+```{r}
+# Para la misma tarea de los ejemplos anteriores:
+i <- 1
+while (i <= 6) {
+  print(letras[i])
+  i <- i + 1
+}
+```
+
+La salida de este ejemplo es la misma que la de los ejemplos anteriores. En este caso, si no se tiene cuidado en el manejo del índice i, involucrado en la condición, se puede dar lugar a un ciclo sin salida.
+
+
+### 4.2.3. Repeticiones infinitas.
+
+La construcción que habilita esta operación es la instrucción **repeat**. Aunque en realidad no se quiere significar que las repeticiones sean infinitas o interminables, como la instrucción no tiene condición de salida o interrupción, el resultado que la instrucción produciría en sí misma sería una repetición interminable; pero, el lenguaje provee facilidades para que desde el interior del bloque de expresiones que se repiten, se obligue la interrupción del ciclo, por ejemplo, mediante la instrucción **break**, que se detalla más adelante. Así, para producir los mismos resultados que en los ejemplos anteriores, se puede hacer así:
+
+```{r}
+i <- 1
+repeat {
+  print(letras[i])
+  i <- i + 1
+  if (i > 6)
+    break
+}
+```
+
+En este caso, mediante un **if** que prueba una condición de salida, se dispara una instrucción **break** que interrumpe el ciclo.
+
+### 4.2.4. Interrupciones del flujo normal de los ciclos.
+
+El flujo normal de los ciclos se puede interrumpir básicamente por medio de tres instrucciones diferentes: **break**, **next** y **return**. En el último ejemplo de la sección anterior, 4.2.3, se ha utilizado la instrucción break para obligar la salida de un ciclo infinito que se realiza mediante la instrucción repeat. No es éste, sin embargo, el único ciclo que puede interrumpir la instrucción break, ya que ella se puede utilizar en el interior de cualquier ciclo para forzar su interrupción. Como un ejemplo, se presenta un ciclo en que simula lo que podría ser un procedimiento iterativo para encontrar el valor de una variable, cuyo valor converge hacia un cierto valor con cada nueva iteración. Para no caer en ciclos verdaderamente infinitos, este tipo de procedimientos limitan el número de iteraciones a un valor suficientemente grande, lo que aquí se hace mediante una instrucción for limitada a 1000 repeticiones:
+
+```{r}
+# se usará un generador de números aleatorios,
+# la siguiente función asegura su repetibilidad:
+set.seed(140) # el argumento puede ser cualquier número
+aprox <- 0.003 # Valor determinante para la salida del ciclo
+
+Y_ini <- 2.7 # Supuesto valor inicial de Y
+for (iter in 1:1000) { # aseguro no más de 1000 iteraciones
+  # Procedimiento para calcular la siguiente Y, que
+  # en este caso simularemos mediante generador aleatorio:
+  Y <- Y_ini + 0.008*rnorm(1)
+  # La condición de salida:
+  if (abs(Y - Y_ini) <= aprox)
+    break # Uso del break para salir del ciclo
+# Preparamos para la siguiente iteración
+Y_ini <- Y
+}
+# Veamos que ha resultado:
+paste0("Y_ini: ", Y_ini, ", Y: ", Y, ", Num.iter: ", iter)
+sol:
+[1] "Y_ini: 2.76443400590741, Y: 2.76582777768031, Num.iter: 8"
+```
+
+En este ejemplo, el objetivo se ha alcanzado en 8 iteraciones. Se ha utilizado la función **abs()**, que entrega el valor absoluto de su argumento, y se ha utilizado un generador de números aleatorios con distribución normal, implementado mediante la función **rnorm()**, que se inicializa mediante la función **set.seed()**.
+
+Un caso parecido de salida o interrupción de un ciclo es la instrucción **return**. Esta instrucción está asociada con las funciones y su propósito es interrumpir u obligar la salida de la función en la cuál se invoca, entregando, opcionalmente, como resultado de la función un valor si se da como argumento del return. De esta manera, la interrupción de un ciclo es realmente colateral, pero igualmente efectiva, solamente que la salida de ciclo no es exactamente afuera de él, sino afuera de la ejecución de la función en la que se ha invocado. Como un ejemplo, se creará y ejecutará una función: la función generadora de los números de fibbonacci, que, tenidos o dados los dos primeros números de fibbonacci, F0 y F1 , definidos ambos como 1, calcula cada uno de los siguientes como la suma de los dos anteriores.
+
