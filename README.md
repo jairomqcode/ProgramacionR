@@ -18,3 +18,4 @@
 | ------------------ | ------------------- | -------------------- |
 | 1 | Lanzamiento de proyectil | [Link](https://github.com/jairomqcode/ProgramacionR/blob/b2f86615bfcc47d956d9511773945f69b94d17ec/proyecto1.md) |
 | 2 | Rotación del triángulo | [Link](https://github.com/jairomqcode/ProgramacionR/blob/9c817ca5835178010f10de3037d04981f152a638/proyecto2.md) |
+| 3 | Cálculo del Módulo de un vector y promedio de un conjunto de datos | [Link](https://github.com/jairomqcode/ProgramacionR/blob/f0b977ca6c2e30aaa75e48de25568cfb6ea14ab0/proyecto3.md) |
