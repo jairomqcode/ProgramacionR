@@ -10,7 +10,7 @@
 | ------------------ | ------------------- | -------------------- |
 | 2 | Los datos y sus tipos | [Link](https://github.com/jairomqcode/ProgramacionR/blob/main/Cap%C3%ADtulo2.md) |
 | 3 | Subconjuntos de datos | [Link](https://github.com/jairomqcode/ProgramacionR/blob/92f9199ce374920d899f112f97b9936d47214fa7/Cap%C3%ADtulo3.md) |
-| 4 | Estructura de control y manejo de datos | [Link](https://github.com/jairomqcode/ProgramacionR/blob/d80a9cb3850343836428ef4c0135ce42e8c15f39/Cap%C3%ADtulo4.md) |
+| 4 | Estructura de control y manejo de datos | [Link](https://github.com/jairomqcode/ProgramacionR/blob/0052259d6449383cb2c5467d6a4ca7d445997f77/Cap%C3%ADtulo4.md) |
 
 ### Proyectos:
 
