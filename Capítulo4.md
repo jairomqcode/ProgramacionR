@@ -218,3 +218,46 @@ sol:
 Hasta aquí, se han visto diferentes estructuras de control que, al igual que otros lenguajes de programación, permiten definir el flujo de ejecución de las instrucciones de algún programa. A través de estas estructuras de control se pueden manipular los elementos de las clases de datos compuestas. La riqueza de este lenguaje, sin embargo, está en el manejo de cada una de las distintas estructuras de información, implementadas a través de las clases de datos estructuradas, como vectores, factores, data frames, etc., como un todo a través de funciones que las contemplan de esa manera.
 
 ### 4.3.2. Las funciones sapply() y lapply().
+
+Para empezar, supóngase que se tiene un data frame, exclusivamente de columnas numéricas y se quiere conocer el promedio de cada una de estas columnas. En este caso, la función **sapply()** permite aplicar una operación o una función a cada uno de los elementos la lista o data frame, dado como argumento. Así, la operación deseada se obtiene de la siguiente manera.
+
+```{r}
+misDatos <- data.frame(uno = runif(5, 10.5, 40.3), dos = runif(5), tres = runif(5, 155, 890))
+print(misDatos)
+
+sol:
+       uno        dos     tres
+1 21.78863 0.45177921 815.1000
+2 33.10142 0.61051394 779.5767
+3 35.52898 0.05165212 471.9405
+4 22.28395 0.42383408 186.0485
+5 34.95414 0.22631810 886.8341
+```
+
+```{r}
+misDatos <- data.frame(uno = runif(5, 10.5, 40.3), dos = runif(5), tres = runif(5, 155, 890))
+print(misDatos)
+print(sapply(misDatos, mean, simplify = TRUE))
+
+sol:
+        uno         dos        tres 
+ 20.4052679   0.4312838 555.9578316 
+ ```
+ 
+ El argumento opcional **simplify**, especificado aquí como **TRUE**, obliga a que el resultado, si se puede, sea entregado como un vector, con un elemento correspondiente a cada una de las columnas en este caso, de otra manera, el resultado es entregado como una lista. El resultado obtenido con la función **lapply** es más o menos similar, pero el resultado se entrega siempre en una lista:
+ 
+ ```{r}
+ print(lapply(misDatos, mean))
+ 
+ sol:
+$uno
+[1] 18.99592
+
+$dos
+[1] 0.2526924
+
+$tres
+[1] 484.9233
+```
+
+### 4.3.3. Operaciones marginales en matrices y la función apply().
