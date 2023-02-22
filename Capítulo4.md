@@ -216,3 +216,5 @@ sol:
 ```
 
 Hasta aquí, se han visto diferentes estructuras de control que, al igual que otros lenguajes de programación, permiten definir el flujo de ejecución de las instrucciones de algún programa. A través de estas estructuras de control se pueden manipular los elementos de las clases de datos compuestas. La riqueza de este lenguaje, sin embargo, está en el manejo de cada una de las distintas estructuras de información, implementadas a través de las clases de datos estructuradas, como vectores, factores, data frames, etc., como un todo a través de funciones que las contemplan de esa manera.
+
+### 4.3.2. Las funciones sapply() y lapply().
